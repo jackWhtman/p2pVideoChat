@@ -1,0 +1,14 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "nodemon": "^3.0.3",
+    "socket.io": "^4.7.4",
+    "uniqid": "^5.4.0"
+  }
+}

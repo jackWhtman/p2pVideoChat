@@ -1,0 +1,12 @@
+.landing{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.videoBox{
+    width: 400px;
+    height: 400px;
+    border-style: solid;
+
+}

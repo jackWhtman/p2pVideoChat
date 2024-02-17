@@ -1,0 +1,27 @@
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.video{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.messageBox{
+    display: flex;
+    align-items: center;
+}
+
+.videoBox{
+    width: 400px;
+    height: 400px;
+    border-style: solid;
+
+}
+.messages{
+    width: 400px;
+    height: 400px;
+    border-style: solid;
+}
