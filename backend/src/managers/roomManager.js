@@ -13,7 +13,7 @@ function Room(user1,user2,roomId){
             user1, 
             user2,
         })
-        console.log("creating room and triggering send offer for both users");
+        console.log("creating room and triggering send offer for both users",user1.socket.id,user2.socket.id);
         user1.socket.emit("send-offer", {
             roomId
         })
@@ -32,6 +32,7 @@ function Room(user1,user2,roomId){
             return;
         }
         const receivingUser = room.user1.socket.id === senderSocketid ? room.user2: room.user1;
+        console.log("asked receiving user to send offer to start another webRTC connection")
         receivingUser?.socket.emit("offer", {
             sdp,
             roomId
@@ -39,12 +40,14 @@ function Room(user1,user2,roomId){
     }
     
     this.onAnswer = function(roomId, sdp, senderSocketid) {
+        console.log("got answer from sending user");
         const room = this.rooms.get(roomId);
         if (!room) {
             return;
         }
         const receivingUser = room.user1.socket.id === senderSocketid ? room.user2: room.user1;
 
+        console.log("sending answer to receiving user");
         receivingUser?.socket.emit("answer", {
             sdp,
             roomId

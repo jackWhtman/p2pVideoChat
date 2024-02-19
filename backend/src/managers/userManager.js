@@ -13,7 +13,9 @@ function UserManager() {
     this.addUser = function (socket, name) {
         this.userList.push(new User(socket, name));
         this.queue.push(socket.id);
+        socket.emit("lobby");
         this.connectUsers();
+        this.initHandlers(socket);
     };
     this.removeUser = function (socketId) {
         this.userList = this.userList.filter(user => user.id !== socketId);
@@ -41,6 +43,7 @@ function UserManager() {
 
     this.initHandlers = function (socket) {
         socket.on("offer", ({sdp, roomId}) => {
+            console.log("got offer with sdp,roomId");
             this.roomManager.onOffer(roomId, sdp, socket.id);
         })
 

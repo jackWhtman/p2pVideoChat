@@ -17,46 +17,31 @@ export default function Landing() {
                 video: true,
                 audio: true
             });
-            const audioTrack = stream.getAudioTracks()[0]
-            const videoTrack = stream.getVideoTracks()[0]
+            const audioTrack = stream.getAudioTracks()[0];
+            const videoTrack = stream.getVideoTracks()[0];
             setLocalAudioTrack(audioTrack);
             setlocalVideoTrack(videoTrack);
             if(!videoRef.current){
                 return;
             }
-            videoRef.current.srcObject = new MediaStream([localVideoTrack, localAudioTrack]);
-            videoRef.current.play();
+            videoRef.current.srcObject = new MediaStream([videoTrack, audioTrack]);
+            videoRef.current.addEventListener('loadedmetadata', () => {
+                videoRef.current.play();
+              });
         }catch(e){
             console.log(e);
         }
-        
     }
-    useEffect(() => {
-        function onConnect() {
-            console.log('connected')
-          setIsConnected(true);
-        }
     
-        function onDisconnect() {
-            console.log('dis-connected')
-          setIsConnected(false);
-        }
-    
-        socket.on('connect', onConnect);
-        socket.on('disconnect', onDisconnect);
-    
-        return () => {
-          socket.off('connect', onConnect);
-          socket.off('disconnect', onDisconnect);
-        };
-      }, []);
 
      useEffect(() => {
-         if(videoRef && videoRef.current) {
+        console.log("called");
+         if(videoRef.current) {
              getMediaInput();
          }
-     }) 
+     },[]) ;
 
+     console.log("landing rendered");
     if(!joined)
         return (
          <div className="landing">
@@ -74,6 +59,13 @@ export default function Landing() {
             </div>
          </div>
         );
-    return <Room setJoined={setJoined}/>
+    return <Room 
+                name={name}
+                joined={joined}
+                setJoined={setJoined} 
+                socket={socket}
+                localAudioTrack={localAudioTrack} 
+                localVideoTrack={localVideoTrack}
+            />
         
 }
