@@ -189,42 +189,36 @@ export default function Room({ name, joined, setJoined, localAudioTrack,
     }, []);
 
     useEffect(() => {
-        if (senderDataChannelRef.current) {
-            const dataChannel = senderDataChannelRef.current;
-    
+        const dataChannel = senderDataChannelRef.current;
+        if (dataChannel.current) {
             // Set up event listeners for the data channel
             dataChannel.onopen = () => {
                 console.log('Data channel is open');
             };
-    
             dataChannel.onmessage = (event) => {
                 const receivedMessage = event.data;
                 console.log('Received message:', receivedMessage);
                 // Handle the received message
             };
-    
             // Clean up data channel on component unmount
             return () => {
                 dataChannel.close();
             };
         }
     }, [senderDataChannelRef.current]);
-    
+
     useEffect(() => {
-        if (receiverDataChannelRef.current) {
-            const dataChannel = receiverDataChannelRef.current;
-    
+        const dataChannel = receiverDataChannelRef.current;
+        if (dataChannel.current) {
             // Set up event listeners for the data channel
             dataChannel.onopen = () => {
                 console.log('Data channel is open');
             };
-    
             dataChannel.onmessage = (event) => {
                 const receivedMessage = event.data;
                 console.log('Received message:', receivedMessage);
                 // Handle the received message
             };
-    
             // Clean up data channel on component unmount
             return () => {
                 dataChannel.close();
