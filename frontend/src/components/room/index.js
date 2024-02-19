@@ -190,7 +190,7 @@ export default function Room({ name, joined, setJoined, localAudioTrack,
 
     useEffect(() => {
         const dataChannel = senderDataChannelRef.current;
-        if (dataChannel.current) {
+        if (dataChannel) {
             // Set up event listeners for the data channel
             dataChannel.onopen = () => {
                 console.log('Data channel is open');
@@ -209,7 +209,7 @@ export default function Room({ name, joined, setJoined, localAudioTrack,
 
     useEffect(() => {
         const dataChannel = receiverDataChannelRef.current;
-        if (dataChannel.current) {
+        if (dataChannel) {
             // Set up event listeners for the data channel
             dataChannel.onopen = () => {
                 console.log('Data channel is open');
